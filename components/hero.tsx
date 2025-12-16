@@ -73,7 +73,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="text-white text-center md:text-left w-[688px] h-[406px]  "
+          className="text-white text-center md:text-left   "
         >
           
             <h1 className="text-4xl  sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-[PP Neue Montreal]  leading-tight">
@@ -116,7 +116,7 @@ export default function Hero() {
             sm:h-[360px]
             md:h-[420px]
             lg:h-[590px]
-            xl:h-[720px]
+            xl:h-[760px]
           "
         >
           <Image
