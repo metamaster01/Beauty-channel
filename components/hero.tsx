@@ -19,13 +19,17 @@ export default function Hero() {
     >
       {/* HEADER */}
       <header className="absolute top-0 left-0 w-full z-20 px-6 md:px-10 lg:px-12 py-5 flex items-center justify-between">
-       <Link
+       
+      <Link
   href="/"
   className="
-    relative block
-    w-[200px] h-[50px]
-    sm:w-[180px] sm:h-[55px]
-    md:w-[200px] md:h-[60px]
+    relative
+    flex items-center
+    shrink-0
+    w-[280px] h-[52px]
+    sm:w-[200px] sm:h-[56px]
+    md:w-[220px] md:h-[60px]
+    lg:w-[240px] lg:h-[64px]
   "
 >
   <Image
@@ -33,9 +37,15 @@ export default function Hero() {
     alt="Beauty Logo"
     fill
     priority
-    className="object-contain"
+    sizes="(max-width: 640px) 180px,
+           (max-width: 768px) 200px,
+           (max-width: 1024px) 320px,
+           240px"
+    className="object-contain object-left scale-[2.25] origin-left"
+
   />
 </Link>
+
 
 
         <button
@@ -81,7 +91,7 @@ export default function Hero() {
           <div className="mt-8 flex flex-col sm:flex-row md:flex-row justify-center md:justify-start gap-4">
             <Link
               href="/booking"
-              className="inline-flex justify-center items-center gap-2 bg-white text-[#7D271A] px-6 py-3 rounded-full text-sm font-medium hover:bg-opacity-90 transition"
+              className="inline-flex justify-center items-center gap-2 bg-white text-[#7D271A] px-6 py-3 rounded-full text-sm font-medium  hover:bg- #7D271A-500 transition"
             >
               Book now <ArrowRight size={16} />
             </Link>
