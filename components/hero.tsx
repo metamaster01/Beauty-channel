@@ -73,19 +73,19 @@ export default function Hero() {
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="text-white text-center md:text-left"
+          className="text-white text-center md:text-left w-[688px] h-[406px]  "
         >
-          <Link href="/" className="block">
-            <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight">
+          
+            <h1 className="text-4xl  sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-[PP Neue Montreal]  leading-tight">
               Experience
               <br />
               Beauty. Feel
             </h1>
 
-            <span className="block mt-2 text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-[cursive] italic">
+            <span className="block    mt-2 text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-[Cursive] italic">
               Confident.
             </span>
-          </Link>
+          
 
           {/* Buttons */}
           <div className="mt-8 flex flex-col sm:flex-row md:flex-row justify-center md:justify-start gap-4">
