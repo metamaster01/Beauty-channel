@@ -49,11 +49,21 @@ export default function Hero() {
 
 
         <button
-          onClick={() => setOpen(true)}
-          className="flex items-center gap-2 text-white uppercase text-xs md:text-sm tracking-widest"
-        >
-          Menu <Menu size={20} />
-        </button>
+  type="button"
+  onClick={() => setOpen(true)}
+  className="
+    relative z-50
+    flex items-center gap-2
+    text-white uppercase
+    text-xs md:text-sm
+    tracking-widest
+    cursor-pointer
+    touch-manipulation
+  "
+>
+  Menu <Menu size={20} />
+</button>
+
       </header>
 
       {/* HERO CONTENT */}
@@ -130,58 +140,96 @@ export default function Hero() {
       </div>
 
       {/* RIGHT MENU */}
-      <AnimatePresence>
-        {open && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.45 }}
-              exit={{ opacity: 0 }}
+      {/* RIGHT MENU */}
+<AnimatePresence>
+  {open && (
+    <>
+      {/* Overlay */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.45 }}
+        exit={{ opacity: 0 }}
+        onClick={() => setOpen(false)}
+        className="fixed inset-0 bg-black z-30"
+      />
+
+      {/* Drawer */}
+      <motion.aside
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "100%" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+       className="fixed inset-y-0 right-0 z-40 w-[85%] sm:w-[360px]"
+
+      >
+        <div className="h-full bg-gradient-to-b from-[#7D271A] to-[#5F1E15] rounded-l-3xl px-6 py-8 flex flex-col">
+
+          {/* Close */}
+          <div className="flex justify-end">
+            <button
               onClick={() => setOpen(false)}
-              className="fixed inset-0 bg-black z-30"
-            />
-
-            <motion.aside
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.35 }}
-              className="fixed top-4 right-4 md:top-6 md:right-6 z-40"
+              className="text-white text-2xl hover:opacity-70 transition"
             >
-              <div className="relative bg-[#7D271A] rounded-3xl px-8 py-8 w-[230px] md:w-[260px] shadow-2xl">
-                <button
-                  onClick={() => setOpen(false)}
-                  className="absolute top-3 right-4 text-white text-xl hover:opacity-70"
-                >
-                  ✕
-                </button>
+              ✕
+            </button>
+          </div>
 
-                <nav className="mt-6 flex flex-col gap-5 text-base md:text-lg font-light tracking-wide text-[#F6E7DE]">
-                  {[
-                    { name: "Home", href: "/" },
-                    { name: "About", href: "/about" },
-                    { name: "Services", href: "/services" },
-                    { name: "Booking", href: "/booking" },
-                    { name: "Contact", href: "/contact" },
-                  ].map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      className="group relative w-fit"
-                    >
-                      <span className="group-hover:text-[#FFD6C9] transition">
-                        {item.name}
-                      </span>
-                      <span className="absolute left-0 -bottom-1 h-[1.5px] w-0 bg-[#FFD6C9] transition-all group-hover:w-full" />
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
+          {/* NAV LINKS */}
+          <nav className="mt-10 flex flex-col gap-6 text-white">
+            {[
+              { name: "Home", href: "/", icon: "🏠" },
+              { name: "About", href: "/about", icon: "✨" },
+              { name: "Services", href: "/services", icon: "🧴" },
+              
+              { name: "Contact", href: "/contact", icon: "📞" },
+              
+            ].map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className={`
+                  flex items-center gap-4 px-4 py-3 rounded-xl
+                  text-lg font-medium
+                  transition
+                  ${
+                    item.active
+                      ? "bg-white/15"
+                      : "hover:bg-white/10"
+                  }
+                `}
+              >
+                <span className="text-xl">{item.icon}</span>
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+
+          {/* CTA BUTTON */}
+          <div className="mt-auto pt-8">
+            <Link
+              href="/booking"
+              onClick={() => setOpen(false)}
+              className="
+                block w-full text-center
+                bg-gradient-to-r from-[#F5D98B] to-[#E6B65C]
+                text-[#5F1E15]
+                font-semibold
+                py-4 rounded-full
+                text-lg
+                hover:opacity-90
+                transition
+              "
+            >
+              Book Your Session
+            </Link>
+          </div>
+        </div>
+      </motion.aside>
+    </>
+  )}
+</AnimatePresence>
+
     </section>
   );
 }
