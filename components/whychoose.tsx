@@ -41,7 +41,6 @@ export default function WhyChoose() {
     offset: ["start end", "end start"],
   });
 
-  // Parallax (smoothed) — safe on mobile too
   const rawImgY = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : 12, reduce ? 0 : -12]);
   const imgY = useSpring(rawImgY, { stiffness: 120, damping: 22, mass: 0.7 });
 
@@ -67,7 +66,7 @@ export default function WhyChoose() {
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
-      transition: { duration: 0.75, ease: "cubic-bezier(0.16, 1, 0.3, 1)" },
+      transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
@@ -87,7 +86,7 @@ export default function WhyChoose() {
       rotateX: 0,
       rotateY: 0,
       filter: "blur(0px)",
-      transition: { duration: 0.9, ease: "cubic-bezier(0.16, 1, 0.3, 1)" },
+      transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
@@ -105,7 +104,7 @@ export default function WhyChoose() {
       scale: 1,
       rotate: 0,
       filter: "blur(0px)",
-      transition: { duration: 1.0, ease: "cubic-bezier(0.16, 1, 0.3, 1)" },
+      transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
@@ -129,7 +128,6 @@ export default function WhyChoose() {
     <div ref={wrapRef}>
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
-          {/* Heading */}
           <motion.div
             className="text-center"
             variants={heading}
@@ -145,7 +143,6 @@ export default function WhyChoose() {
             </p>
           </motion.div>
 
-          {/* Top cards (Responsive grid: 1 -> 2 -> 3) */}
           <motion.div
             className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 [perspective:1200px]"
             variants={container}
@@ -168,9 +165,7 @@ export default function WhyChoose() {
             ))}
           </motion.div>
 
-          {/* Bottom row (Responsive: stack -> 2 cols) */}
           <div className="mt-6 grid gap-4 sm:mt-8 sm:gap-6 lg:grid-cols-3 lg:items-stretch">
-            {/* Image (on small screens: full width, nice height) */}
             <motion.div
               className="relative overflow-hidden rounded-2xl bg-neutral-100 lg:col-span-2"
               variants={imageWrap}
@@ -180,7 +175,6 @@ export default function WhyChoose() {
             >
               <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-black/5" />
 
-              {/* shine sweep */}
               <motion.div
                 className="pointer-events-none absolute inset-y-0 left-0 w-1/3 rotate-12 bg-gradient-to-r from-transparent via-white/40 to-transparent"
                 variants={shine}
@@ -202,7 +196,6 @@ export default function WhyChoose() {
               </div>
             </motion.div>
 
-            {/* Big card */}
             <motion.div
               variants={cardIn}
               initial="hidden"
@@ -251,11 +244,10 @@ function WhyCardBox({
         className,
       ].join(" ")}
       style={{
-        backgroundColor: "#79000C",
+        backgroundColor: "#BA6C4E",
         boxShadow: "0 10px 25px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.06)",
       }}
     >
-      {/* hover glow */}
       <div
         className="pointer-events-none absolute -inset-12 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-70"
         style={{
@@ -264,7 +256,6 @@ function WhyCardBox({
         }}
       />
 
-      {/* floating icon */}
       <motion.div
         {...(floatIconProps ?? {})}
         className="absolute left-5 top-5 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-sm"
@@ -295,9 +286,7 @@ function WhyCardBox({
 
       <div className="pt-10">
         <h3 className="text-base font-semibold sm:text-lg">{title}</h3>
-        <p className="mt-3 text-sm leading-6 text-white/90">
-          {description}
-        </p>
+        <p className="mt-3 text-sm leading-6 text-white/90">{description}</p>
       </div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/25" />

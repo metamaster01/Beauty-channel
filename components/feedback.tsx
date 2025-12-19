@@ -61,16 +61,16 @@ function FeedbackCard({
       <div
         className={`relative rounded-2xl px-12 py-10 overflow-hidden transition-all duration-300 ${
           isDark
-            ? "text-white shadow-[0_25px_60px_rgba(121,0,12,0.35)]"
+            ? "text-white shadow-[0_25px_60px_rgba(186,108,78,0.35)]"
             : "bg-[#f3e4e6] text-[#1f1f1f] shadow-[0_18px_45px_rgba(0,0,0,0.12)]"
         }`}
-        style={isDark ? { backgroundColor: "#79000C" } : undefined}
+        style={isDark ? { backgroundColor: "#BA6C4E" } : undefined}
       >
         {/* overlay */}
         {isDark && (
           <div
             className="absolute inset-0 pointer-events-none"
-            style={{ backgroundColor: "#79000C21" }}
+            style={{ backgroundColor: "#BA6C4E21" }}
             aria-hidden
           />
         )}
@@ -88,9 +88,7 @@ function FeedbackCard({
         </span>
 
         <div className="relative pt-12">
-          <h4 className="text-xl font-semibold tracking-tight">
-            {item.name}
-          </h4>
+          <h4 className="text-xl font-semibold tracking-tight">{item.name}</h4>
 
           <p
             className={`mt-6 text-base leading-7 ${
@@ -119,7 +117,6 @@ export default function Feedback() {
           Feedback Corner
         </motion.h2>
 
-        {/* responsive cards */}
         <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 place-items-center">
           {feedbacks.map((item, index) => (
             <div

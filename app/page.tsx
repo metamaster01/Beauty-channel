@@ -15,17 +15,9 @@ export default function Home() {
       <AboutUs/>
       <OurServices/>
       <Offer/>
-      <WhyChoose/>
-<<<<<<< Updated upstream
-      
-      
+      <WhyChoose/>   
       <Feedback/>
       <Gallery/>
-
-=======
-      <Feedback/>
-      <Gallery/>
->>>>>>> Stashed changes
       </main>
   );
 }
