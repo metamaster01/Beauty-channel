@@ -16,11 +16,16 @@ export default function Home() {
       <OurServices/>
       <Offer/>
       <WhyChoose/>
+<<<<<<< Updated upstream
       
       
       <Feedback/>
       <Gallery/>
 
+=======
+      <Feedback/>
+      <Gallery/>
+>>>>>>> Stashed changes
       </main>
   );
 }

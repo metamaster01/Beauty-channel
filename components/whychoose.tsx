@@ -67,7 +67,7 @@ export default function WhyChoose() {
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
-      transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.75, ease: "cubic-bezier(0.16, 1, 0.3, 1)" },
     },
   };
 
@@ -87,7 +87,7 @@ export default function WhyChoose() {
       rotateX: 0,
       rotateY: 0,
       filter: "blur(0px)",
-      transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.9, ease: "cubic-bezier(0.16, 1, 0.3, 1)" },
     },
   };
 
@@ -105,7 +105,7 @@ export default function WhyChoose() {
       scale: 1,
       rotate: 0,
       filter: "blur(0px)",
-      transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 1.0, ease: "cubic-bezier(0.16, 1, 0.3, 1)" },
     },
   };
 
