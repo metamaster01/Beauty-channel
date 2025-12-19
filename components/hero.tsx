@@ -139,7 +139,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* RIGHT MENU */}
+      
       {/* RIGHT MENU */}
 <AnimatePresence>
   {open && (
@@ -218,6 +218,7 @@ export default function Hero() {
                 py-4 rounded-full
                 text-lg
                 hover:opacity-90
+                hover:bg-#F5D98B-600
                 transition
               "
             >
