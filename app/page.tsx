@@ -7,6 +7,7 @@ import OurServices from "@/components/ourservices";
 import Offer from "@/components/offer";
 import AppointmentHero from "@/components/appoinment"; 
 import ContactFaqMock from "@/components/contactfaqmock";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <Gallery/>
       <AppointmentHero/>
       <ContactFaqMock/>
+      <Footer/>
       </main>
   );
 }
