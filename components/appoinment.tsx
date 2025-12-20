@@ -17,6 +17,7 @@ export default function AppointmentHero({
   const [inView, setInView] = useState(false);
 
   const uid = useId().replace(/:/g, "");
+
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -168,18 +169,31 @@ export default function AppointmentHero({
         />
       </div>
 
-      {/* Content */}
-      <div className="relative mx-auto flex min-h-[320px] max-w-6xl items-end justify-between gap-10 px-6 py-10 md:min-h-[420px] md:px-10 md:py-14">
-        <div className="max-w-xl pb-2 md:pb-6">
-          <h1 className="text-white text-4xl leading-[1.05] tracking-tight md:text-6xl">
+      {/* Content (Responsive) */}
+      <div
+        className="
+          relative mx-auto max-w-6xl
+          px-5 sm:px-6 md:px-10
+          pt-10 pb-10 sm:pt-12 sm:pb-12 md:pt-14 md:pb-14
+          min-h-[380px] sm:min-h-[420px] md:min-h-[520px]
+          flex flex-col md:flex-row
+          items-center md:items-end
+          justify-between
+          gap-8 md:gap-10
+          text-center md:text-left
+        "
+      >
+        {/* Left headline */}
+        <div className="w-full md:w-auto max-w-xl">
+          <h1 className="text-white tracking-tight leading-[1.05]">
             <span
-              className={`beauty_${uid}_wipe ${inView ? "is-inview" : ""} block`}
+              className={`beauty_${uid}_wipe ${inView ? "is-inview" : ""} block text-4xl sm:text-5xl md:text-6xl`}
               style={{ animationDelay: "60ms" }}
             >
               Experience Beauty.
             </span>
             <span
-              className={`beauty_${uid}_wipe ${inView ? "is-inview" : ""} block`}
+              className={`beauty_${uid}_wipe ${inView ? "is-inview" : ""} block text-4xl sm:text-5xl md:text-6xl`}
               style={{ animationDelay: "190ms" }}
             >
               Feel Confident.
@@ -194,9 +208,10 @@ export default function AppointmentHero({
           </div>
         </div>
 
-        <div className="ml-auto max-w-sm pb-2 text-right md:pb-6">
+        {/* Right copy + CTA */}
+        <div className="w-full md:w-auto max-w-md md:max-w-sm md:ml-auto md:text-right">
           <p
-            className={`beauty_${uid}_reveal ${inView ? "is-inview" : ""} text-white/90 text-sm leading-relaxed md:text-base`}
+            className={`beauty_${uid}_reveal ${inView ? "is-inview" : ""} text-white/90 text-sm sm:text-base leading-relaxed`}
             style={{ animationDelay: "420ms" }}
           >
             Premium hair, skin, makeup &amp; wellness services crafted to bring out your natural
@@ -204,13 +219,13 @@ export default function AppointmentHero({
           </p>
 
           <div
-            className={`beauty_${uid}_reveal ${inView ? "is-inview" : ""} mt-5 flex justify-end`}
+            className={`beauty_${uid}_reveal ${inView ? "is-inview" : ""} mt-5 flex justify-center md:justify-end`}
             style={{ animationDelay: "520ms" }}
           >
             <button
               type="button"
               onClick={onBookClick}
-              className="group relative inline-flex items-center gap-2 text-white text-sm md:text-base rounded-full px-4 py-2 transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
+              className="group relative inline-flex items-center gap-2 text-white text-sm sm:text-base rounded-full px-4 py-2 transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
               style={{
                 animation: inView ? `beauty_${uid}_ctaPulse 2.8s ease-in-out infinite` : undefined,
                 backdropFilter: "blur(6px)",
