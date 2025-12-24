@@ -12,12 +12,12 @@ export default function Navbar() {
   return (
     <>
       {/* ================= NAVBAR ================= */}
-      <nav className="fixed top-0 left-0 w-full z-50">
+      <nav className="fixed top-0 left-0 w-full  z-50">
 
         <div
           className="
             mx-auto max-w-7xl
-            px-6 md:px-10
+            px-8 md:px-10
             pt-6
           "
         >
@@ -26,18 +26,18 @@ export default function Navbar() {
               flex items-center justify-between
               rounded-2xl
               px-6 py-4
-              bg-[#b79a45]/70
+              bg-[#B08D3C]/60
               backdrop-blur-md
             "
           >
             {/* LOGO */}
-            <Link href="/" className="relative w-[170px] h-[40px]">
+            <Link href="/" className="relative w-[320px] h-[40px]">
               <Image
                 src="/beautylogo.png"
                 alt="Beauty Logo"
                 fill
                 priority
-                className="object-contain object-left"
+                className="object-contain object-left w-[320px]"
               />
             </Link>
 
@@ -72,63 +72,90 @@ export default function Navbar() {
 
             {/* Drawer */}
             <motion.aside
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="fixed inset-y-0 right-0 z-50 w-[85%] sm:w-[360px]"
-            >
-              <div className="h-full bg-[#7D271A] px-8 py-8 flex flex-col">
-                {/* Close */}
-                <div className="flex justify-end">
-                  <button
-                    onClick={() => setOpen(false)}
-                    className="text-white text-2xl"
-                  >
-                    <X />
-                  </button>
-                </div>
+  initial={{ x: "100%" }}
+  animate={{ x: 0 }}
+  exit={{ x: "100%" }}
+  transition={{ duration: 0.45, ease: "easeOut" }}
+  className="fixed inset-y-0 right-0 z-50 w-[88%] sm:w-[380px]"
+>
+  <div
+    className="
+      h-full
+      flex flex-col
+      px-8 pt-10 pb-8
+      bg-white/55
+      backdrop-blur-2xl
+      border-l border-white/40
+    "
+  >
+    {/* CLOSE */}
+    <div className="flex justify-end mb-8">
+      <button
+        onClick={() => setOpen(false)}
+        className="text-black text-2xl hover:rotate-90 transition duration-300"
+      >
+        <X />
+      </button>
+    </div>
 
-                {/* Links */}
-                <nav className="mt-10 flex flex-col gap-6 text-white text-lg">
-                  {[
-                    { name: "Home", href: "/" },
-                    { name: "About", href: "/about" },
-                    { name: "Services", href: "/services" },
-                    { name: "Products", href: "/products" },
-                    { name: "Contact", href: "/contact" },
-                    { name: "Blogs", href: "/blogs" },
-                  ].map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      className="hover:opacity-80 transition"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </nav>
+    {/* LINKS */}
+    <nav className="flex flex-col gap-3 text-black text-lg font-medium">
+      {[
+        { name: "Home", href: "/" },
+        { name: "About", href: "/about" },
+        { name: "Services", href: "/services" },
+        { name: "Products", href: "/products" },
+        { name: "Blogs", href: "/blogs" },
+        { name: "Contact", href: "/contact" },
+      ].map((item) => (
+        <Link
+          key={item.name}
+          href={item.href}
+          onClick={() => setOpen(false)}
+          className="
+            group
+            relative
+            flex items-center
+            w-full
+            px-6 py-4
+            rounded-2xl
+            transition-all duration-300
+            hover:bg-gradient-to-r
+            hover:from-black/5
+            hover:to-black/10
+            hover:translate-x-1
+          "
+        >
+          <span className="transition-all duration-300 group-hover:tracking-wide">
+            {item.name}
+          </span>
+        </Link>
+      ))}
+    </nav>
 
-                {/* CTA */}
-                <div className="mt-auto pt-8">
-                  <Link
-                    href="/booking"
-                    onClick={() => setOpen(false)}
-                    className="
-                      block text-center
-                      bg-[#F1D06B]
-                      text-[#5A3A10]
-                      font-semibold
-                      py-4 rounded-full
-                      text-lg
-                    "
-                  >
-                    Book Your Session
-                  </Link>
-                </div>
-              </div>
-            </motion.aside>
+    {/* CTA */}
+    <div className="mt-auto pt-10">
+      <Link
+        href="/booking"
+        onClick={() => setOpen(false)}
+        className="
+          block w-full text-center
+          bg-[#B08D3C]
+          text-[#5A3A10]
+          font-semibold
+          py-4 rounded-full
+          text-lg
+          hover:scale-[1.03]
+          hover:shadow-xl
+          transition-all duration-300
+        "
+      >
+        Book Your Session
+      </Link>
+    </div>
+  </div>
+</motion.aside>
+
           </>
         )}
       </AnimatePresence>

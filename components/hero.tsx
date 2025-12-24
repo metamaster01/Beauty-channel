@@ -238,14 +238,138 @@
 
 
 
+// "use client";
+
+// import Link from "next/link";
+// import Image from "next/image";
+// import { motion } from "framer-motion";
+// import { ArrowRight } from "lucide-react";
+
+// export default function Hero() {
+//   return (
+//     <section
+//       className="relative w-full overflow-hidden"
+//       style={{
+//         background:
+//           "linear-gradient(180deg, #B08D3C 0%, #0F0F0F 68.83%)",
+//       }}
+//     >
+//       {/* HERO CONTENT */}
+//       <div
+//         className="
+//           relative z-10 max-w-7xl mx-auto
+//           px-6 md:px-10 lg:px-12
+//           h-screen
+//           grid grid-cols-1 md:grid-cols-2
+//           items-start
+//           gap-10 md:gap-8 lg:gap-10
+//           pt-28 md:pt-32 lg:pt-36
+//         "
+//       >
+//         {/* LEFT TEXT */}
+//         <motion.div
+//           initial={{ opacity: 0, y: 25 }}
+//           animate={{ opacity: 1, y: 0 }}
+//           transition={{ duration: 0.7 }}
+//           className="text-white text-center 
+//             max-w-[460px]
+//     md:max-w-[600px]
+//     lg:max-w-[520px]
+//      md:text-left mt-10 md:mt-0  lg:mt-30
+//     xl:mt-32"
+//         >
+//           <h1 className="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-[PP Neue Montreal] leading-tight">
+//             Experience
+//             <br />
+//             Beauty. Feel
+//           </h1>
+
+//           <span className="block mt-2 text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-[Cursive] italic">
+//             Confident.
+//           </span>
+
+//           {/* Buttons */}
+//           <div className="mt-8 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
+//             <Link
+//               href="/booking"
+//               className="inline-flex justify-center items-center gap-2 bg-[#B08D3C] text-[#7D271A] px-6 py-3 rounded-full text-sm font-medium transition hover:opacity-90"
+//             >
+//               Book now <ArrowRight size={16} />
+//             </Link>
+
+//             <Link
+//               href="/services"
+//               className="inline-flex justify-center items-center gap-2 border border-white text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-white hover:text-[#7D271A] transition"
+//             >
+//               View services
+//             </Link>
+//           </div>
+//         </motion.div>
+
+//         {/* RIGHT IMAGE */}
+//         <motion.div
+//           initial={{ opacity: 0, x: 30 }}
+//           animate={{ opacity: 1, x: 0 }}
+//           transition={{ duration: 0.8 }}
+//           className="
+//             relative w-full
+//             h-[360px]
+//             sm:h-[480px]
+//             md:h-[520px]
+//             lg:h-[590px]
+//             xl:h-[760px]
+//           "
+//         >
+//           <Image
+//             src="/wmodel.png"
+//             alt="Beauty Model"
+//             fill
+//             priority
+//              className="
+//     object-contain
+//     object-right
+//     translate-x-6
+//     md:object-center
+//     lg:translate-x-45
+//   "
+
+//           />
+//         </motion.div>
+//       </div>
+//     </section>
+//   );
+// }
+
+
+
+
+
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
+const models = [
+  "/wmodel.png",
+  "/wmodel2.png",
+  "/wmodel3.png",
+];
+
 export default function Hero() {
+  const [index, setIndex] = useState(0);
+
+  // Auto rotate images
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % models.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       className="relative w-full overflow-hidden"
@@ -261,7 +385,7 @@ export default function Hero() {
           px-6 md:px-10 lg:px-12
           h-screen
           grid grid-cols-1 md:grid-cols-2
-          items-center
+          items-start
           gap-10 md:gap-8 lg:gap-10
           pt-24 md:pt-28 lg:pt-32
         "
@@ -271,23 +395,27 @@ export default function Hero() {
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="text-white text-center md:text-left"
+          className="
+            text-white text-center md:text-left
+            max-w-[520px]
+            md:mt-0 lg:mt-28 xl:mt-32
+          "
         >
-          <h1 className="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-[PP Neue Montreal] leading-tight">
+          <h1 className="text-4xl mt-6 md:text-4xl lg:text-5xl xl:text-6xl font-[PP Neue Montreal] leading-tight">
             Experience
             <br />
             Beauty. Feel
           </h1>
 
-          <span className="block mt-2 text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-[Cursive] italic">
+          <span className="block mt-4 text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-[Cursive] italic">
             Confident.
           </span>
 
           {/* Buttons */}
-          <div className="mt-8 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
+          <div className="mt-14 flex flex-col sm:flex-row justify-center md:justify-start gap-6">
             <Link
               href="/booking"
-              className="inline-flex justify-center items-center gap-2 bg-[#B08D3C] text-[#7D271A] px-6 py-3 rounded-full text-sm font-medium transition hover:opacity-90"
+              className="inline-flex justify-center items-center gap-2 bg-[#B08D3C] text-[#7D271A] px-6 py-3 rounded-full text-sm font-medium hover:opacity-90 transition"
             >
               Book now <ArrowRight size={16} />
             </Link>
@@ -301,11 +429,8 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* RIGHT IMAGE */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+        {/* RIGHT IMAGE CAROUSEL */}
+        <div
           className="
             relative w-full
             h-[360px]
@@ -313,25 +438,33 @@ export default function Hero() {
             md:h-[520px]
             lg:h-[590px]
             xl:h-[760px]
+            flex justify-end
           "
         >
-          <Image
-            src="/model.png"
-            alt="Beauty Model"
-            fill
-            priority
-             className="
-    object-contain
-    object-right
-    translate-x-6
-    md:object-center
-    lg:translate-x-62
-  "
-
-          />
-        </motion.div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="relative w-full h-full"
+            >
+              <Image
+                src={models[index]}
+                alt="Beauty Model"
+                fill
+                priority
+                className="
+                  object-contain
+                  object-right
+                  lg:translate-x-62
+                "
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );
 }
-
