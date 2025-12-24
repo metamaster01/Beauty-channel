@@ -287,7 +287,7 @@ export default function Hero() {
           <div className="mt-8 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
             <Link
               href="/booking"
-              className="inline-flex justify-center items-center gap-2 bg-white text-[#7D271A] px-6 py-3 rounded-full text-sm font-medium transition hover:opacity-90"
+              className="inline-flex justify-center items-center gap-2 bg-[#B08D3C] text-[#7D271A] px-6 py-3 rounded-full text-sm font-medium transition hover:opacity-90"
             >
               Book now <ArrowRight size={16} />
             </Link>
@@ -316,11 +316,18 @@ export default function Hero() {
           "
         >
           <Image
-            src="/womenmodel.png"
+            src="/model.png"
             alt="Beauty Model"
             fill
             priority
-            className="object-contain object-center md:object-right"
+             className="
+    object-contain
+    object-right
+    translate-x-6
+    md:object-center
+    lg:translate-x-62
+  "
+
           />
         </motion.div>
       </div>
