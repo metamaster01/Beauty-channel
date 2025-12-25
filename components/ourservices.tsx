@@ -41,7 +41,7 @@ const services = [
 
 export default function OurServices() {
   return (
-    <section className="w-full bg-white py-20">
+    <section className="w-full bg-[#0F0F0F] py-20">
       <div className="max-w-6xl mx-auto px-6">
 
         {/* ================= HEADER ================= */}
@@ -52,16 +52,16 @@ export default function OurServices() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <div className="flex justify-center items-center gap-2 text-sm text-[#B46A4C] font-medium mb-3">
-            <span className="w-2 h-2 rounded-full bg-[#B46A4C]" />
+          <div className="flex justify-center items-center gap-2 text-sm text-white font-medium mb-3">
+            <span className="w-2 h-2 rounded-full bg-[#B08D3C]" />
             Our Services
           </div>
 
-          <h2 className="text-3xl md:text-[40px] font-medium text-black">
+          <h2 className="text-3xl md:text-[40px] font-medium text-white">
             Experience beauty crafted with precision.
           </h2>
 
-          <p className="mt-4 text-black max-w-2xl mx-auto text-sm md:text-base">
+          <p className="mt-4 text-white max-w-2xl mx-auto text-sm md:text-base">
             From expert hair transformations to luxurious skin rituals, we offer
             a complete range of beauty solutions designed to enhance your
             natural glow.
@@ -81,8 +81,8 @@ export default function OurServices() {
               className={`
                 group rounded-3xl overflow-hidden 
                 border border-gray-200
-                ${service.highlight ? "bg-[#C77B58]" : "bg-gray-100"}
-                shadow-sm hover:shadow-xl transition hover:bg-[#C77B58]
+                ${service.highlight ? "bg-[#C77B58]" : "bg-[#1D1D1D]"}
+                shadow-sm hover:shadow-xl transition hover:bg-[#B08D3C]
               `}
             >
               {/* IMAGE */}
@@ -99,7 +99,7 @@ export default function OurServices() {
               <div className="p-6 flex flex-col h-[240px]">
                 <h3
                   className={`text-lg font-semibold mb-2 ${
-                    service.highlight ? "text-white" : "text-black"
+                    service.highlight ? "text-white" : "text-white"
                   }`}
                 >
                   {service.title}
@@ -109,7 +109,7 @@ export default function OurServices() {
                   className={`text-sm leading-relaxed flex-grow ${
                     service.highlight
                       ? "text-white/200"
-                      : "text-black"
+                      : "text-white"
                   }`}
                 >
                   {service.desc}
@@ -124,7 +124,7 @@ export default function OurServices() {
                     ${
                       service.highlight
                         ? "bg-white text-[#C77B58]"
-                        : "border border-gray-400 text-black hover:bg-black hover:text-white"
+                        : "border border-gray-400 text-white hover:bg-black hover:text-white"
                     }
                   `}
                 >

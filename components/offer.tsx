@@ -44,14 +44,14 @@ function Marquee({ reverse = false, bg, z, opacity = 1 }) {
 
 export default function Offer() {
   return (
-    <section className="relative w-full bg-white overflow-hidden py-30">
+    <section className="relative w-full bg-[#0F0F0F] overflow-hidden py-30">
       <div className="relative h-[200px]">
 
         {/* BACK STRIP (LIGHT, BEHIND) */}
         <div className="absolute inset-0 rotate-[6deg]">
           <Marquee
             reverse
-            bg="bg-[#E4B19B]"
+            bg="bg-[#B08D3C]"
             z="z-10"
             opacity={0.75}
           />
@@ -60,7 +60,7 @@ export default function Offer() {
         {/* FRONT STRIP (DARK, ON TOP) */}
         <div className="absolute inset-0 rotate-[-6deg]">
           <Marquee
-            bg="bg-[#C77B58]"
+            bg="bg-[#B08D3C]"
             z="z-27"
             opacity={1}
           />
