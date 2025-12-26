@@ -10,6 +10,9 @@ import ContactFaqMock from "@/components/contactfaqmock";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import Advertisement from "@/components/advertisement";
+import Offer from "@/components/offer";
+import OurServices from "@/components/ourservices";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -26,6 +29,7 @@ export default function Home() {
       <AppointmentHero/>
       <ContactFaqMock/>
       <Footer/>
+      <Offer/>
       </main>
   );
 }
