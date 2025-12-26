@@ -30,7 +30,7 @@ export default function Home() {
       <ContactFaqMock/>
     <BeautyMarquee/>
       <Footer/>
-      <Offer/>
+      
       </main>
   );
 }
