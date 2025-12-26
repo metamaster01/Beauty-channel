@@ -44,7 +44,7 @@ function Marquee({ reverse = false, bg, z, opacity = 1 }) {
 
 export default function Offer() {
   return (
-    <section className="relative w-full bg-[#0F0F0F] overflow-hidden py-30">
+    <section className="relative w-full bg-[#0F0F0F] overflow-hidden py-54">
       <div className="relative h-[200px]">
 
         {/* BACK STRIP (LIGHT, BEHIND) */}

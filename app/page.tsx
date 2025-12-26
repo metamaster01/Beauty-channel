@@ -9,6 +9,7 @@ import AppointmentHero from "@/components/appoinment";
 import ContactFaqMock from "@/components/contactfaqmock";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
+import Advertisement from "@/components/advertisement";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <Hero/>
       <AboutUs/>
       <OurServices/>
+      <Advertisement/>
       <Offer/>
       <WhyChoose/>   
       <Feedback/>

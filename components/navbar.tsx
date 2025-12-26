@@ -14,14 +14,16 @@ export default function Navbar() {
       {/* ================= NAVBAR ================= */}
       <nav className="fixed top-0 left-0 w-full  z-50">
 
-        <div
+        {/* <div
           className="
             mx-auto max-w-7xl
             px-8 md:px-10
             pt-6
           "
-        >
-          <div
+        > */}
+
+        <div className="w-full px-4 sm:px-6 md:px-10 pt-4">
+          {/* <div
             className="
               flex items-center justify-between
               rounded-2xl
@@ -29,7 +31,19 @@ export default function Navbar() {
               bg-[#B08D3C]/60
               backdrop-blur-md
             "
-          >
+          > */}
+
+          <div
+  className="
+    flex items-center justify-between
+    w-full
+    rounded-2xl
+    px-6 sm:px-8 md:px-40 lg:px-12
+    py-6
+    bg-[#B08D3C]/30
+    backdrop-blur-md
+  "
+>
             {/* LOGO */}
             <Link href="/" className="relative w-[320px] h-[40px]">
               <Image
