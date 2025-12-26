@@ -178,7 +178,7 @@ export default function ContactFAQMock() {
         <div className="mx-auto max-w-5xl">
           <div className="grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden border border-black/10">
             {/* Left panel */}
-            <div className="relative bg-[#B56A54] text-white p-8 sm:p-10 overflow-hidden">
+            <div className="relative bg-[#B08D3C] text-white p-8 sm:p-10 overflow-hidden">
               {/* subtle “shine” sweep */}
               <div
                 aria-hidden="true"

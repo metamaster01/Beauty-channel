@@ -64,13 +64,13 @@ function FeedbackCard({
             ? "text-white shadow-[0_25px_60px_rgba(186,108,78,0.35)]"
             : "bg-[#f3e4e6] text-[#1f1f1f] shadow-[0_18px_45px_rgba(0,0,0,0.12)]"
         }`}
-        style={isDark ? { backgroundColor: "#BA6C4E" } : undefined}
+        style={isDark ? { backgroundColor: "#B08D3C" } : undefined}
       >
         {/* overlay */}
         {isDark && (
           <div
             className="absolute inset-0 pointer-events-none"
-            style={{ backgroundColor: "#BA6C4E21" }}
+            style={{ backgroundColor: "#B08D3C21" }}
             aria-hidden
           />
         )}

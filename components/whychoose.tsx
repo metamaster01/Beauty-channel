@@ -244,7 +244,7 @@ function WhyCardBox({
         className,
       ].join(" ")}
       style={{
-        backgroundColor: "#BA6C4E",
+        backgroundColor: "#B08D3C",
         boxShadow: "0 10px 25px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.06)",
       }}
     >

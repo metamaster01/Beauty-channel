@@ -146,7 +146,7 @@ export default function AppointmentHero({
           className={`absolute -inset-24 beauty_${uid}_anim pointer-events-none`}
           style={{
             background:
-              "radial-gradient(closest-side at 35% 35%, rgba(255,255,255,.22), rgba(255,255,255,0) 60%)",
+              "radial-gradient(closest-side at 35% 35%, rgba(176,141,60,.22), rgba(176,141,60,0) 60%)",
             animation: `beauty_${uid}_spotlightDrift 7.5s ease-in-out infinite`,
             mixBlendMode: "soft-light",
           }}
@@ -157,7 +157,7 @@ export default function AppointmentHero({
           className={`absolute inset-0 beauty_${uid}_anim pointer-events-none`}
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.22) 50%, rgba(255,255,255,0) 100%)",
+              "linear-gradient(90deg, rgba(176,141,60,0) 0%, rgba(176,141,60,.22) 50%, rgba(176,141,60,0) 100%)",
             width: "55%",
             left: "-10%",
             top: "0",

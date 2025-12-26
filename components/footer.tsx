@@ -81,7 +81,7 @@ export default function Footer() {
   );
 
   return (
-    <footer ref={footerRef} className="relative w-full bg-[#B56A54] text-white overflow-hidden">
+    <footer ref={footerRef} className="relative w-full bg-[#B08D3C] text-white overflow-hidden">
       {/* Inline CSS animations (scoped) */}
       <style>{`
         @keyframes f_${uid}_fadeUp {
