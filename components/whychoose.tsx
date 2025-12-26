@@ -23,8 +23,7 @@ const TOP_CARDS: WhyCard[] = [
   },
   {
     title: "Luxury Care",
-    description:
-      "Soft ambience, premium tools, and high-standard hygiene for a spa-like feel.",
+    description: "Soft ambience, premium tools, and high-standard hygiene for a spa-like feel.",
   },
   {
     title: "Tailored Beauty",
@@ -126,7 +125,8 @@ export default function WhyChoose() {
 
   return (
     <div ref={wrapRef}>
-      <section className="bg-white">
+      {/* Background like your screenshot */}
+      <section className="bg-[#B08D3C]">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
           <motion.div
             className="text-center"
@@ -135,10 +135,10 @@ export default function WhyChoose() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.45 }}
           >
-            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl lg:text-4xl">
               Why choose us
             </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-sm text-neutral-600 sm:text-base">
+            <p className="mx-auto mt-3 max-w-2xl text-sm text-white/80 sm:text-base">
               A beauty destination made for your comfort and confidence.
             </p>
           </motion.div>
@@ -166,14 +166,15 @@ export default function WhyChoose() {
           </motion.div>
 
           <div className="mt-6 grid gap-4 sm:mt-8 sm:gap-6 lg:grid-cols-3 lg:items-stretch">
+            {/* Image card like screenshot (light container) */}
             <motion.div
-              className="relative overflow-hidden rounded-2xl bg-neutral-100 lg:col-span-2"
+              className="relative overflow-hidden rounded-2xl bg-white lg:col-span-2"
               variants={imageWrap}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.35 }}
             >
-              <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-black/5" />
+              <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-black/10" />
 
               <motion.div
                 className="pointer-events-none absolute inset-y-0 left-0 w-1/3 rotate-12 bg-gradient-to-r from-transparent via-white/40 to-transparent"
@@ -192,7 +193,7 @@ export default function WhyChoose() {
                   />
                 </motion.div>
 
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
               </div>
             </motion.div>
 
@@ -244,15 +245,15 @@ function WhyCardBox({
         className,
       ].join(" ")}
       style={{
-        backgroundColor: "#B08D3C",
-        boxShadow: "0 10px 25px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.06)",
+        backgroundColor: "#0B0B0B",
+        boxShadow: "0 10px 25px rgba(0,0,0,0.20), 0 2px 8px rgba(0,0,0,0.14)",
       }}
     >
       <div
         className="pointer-events-none absolute -inset-12 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-70"
         style={{
           background:
-            "radial-gradient(circle at 25% 20%, rgba(255,255,255,0.24), transparent 45%), radial-gradient(circle at 80% 70%, rgba(255,255,255,0.16), transparent 42%)",
+            "radial-gradient(circle at 25% 20%, rgba(255,255,255,0.16), transparent 45%), radial-gradient(circle at 80% 70%, rgba(255,255,255,0.10), transparent 42%)",
         }}
       />
 
@@ -289,7 +290,7 @@ function WhyCardBox({
         <p className="mt-3 text-sm leading-6 text-white/90">{description}</p>
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/25" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/15" />
     </motion.div>
   );
 }
