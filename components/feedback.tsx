@@ -1,19 +1,20 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 type FeedbackItem = {
   name: string;
   text: string;
-  variant: "light" | "dark";
+  // "gold" = highlighted card like screenshot, "dark" = normal dark card
+  variant: "gold" | "dark";
 };
 
 const feedbacks: FeedbackItem[] = [
   {
-    name: "Emily Wilson",
+    name: "Sarah Thompson",
     text: "I recently purchased the Glossom Glow Serum and I'm absolutely in love with it! My skin feels so hydrated and radiant.",
-    variant: "light",
+    variant: "gold",
   },
   {
     name: "Sarah Thompson",
@@ -21,113 +22,186 @@ const feedbacks: FeedbackItem[] = [
     variant: "dark",
   },
   {
-    name: "Olivia Martinez",
+    name: "Sarah Thompson",
     text: "I recently purchased the Glossom Glow Serum and I'm absolutely in love with it! My skin feels so hydrated and radiant.",
-    variant: "light",
+    variant: "dark",
+  },
+  {
+    name: "Sarah Thompson",
+    text: "I recently purchased the Glossom Glow Serum and I'm absolutely in love with it! My skin feels so hydrated and radiant.",
+    variant: "dark",
+  },
+  {
+    name: "Sarah Thompson",
+    text: "I recently purchased the Glossom Glow Serum and I'm absolutely in love with it! My skin feels so hydrated and radiant.",
+    variant: "dark",
+  },
+  {
+    name: "Sarah Thompson",
+    text: "I recently purchased the Glossom Glow Serum and I'm absolutely in love with it! My skin feels so hydrated and radiant.",
+    variant: "dark",
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 60 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.15, duration: 0.6, ease: "easeOut" },
-  }),
-};
+export default function Feedback() {
+  const reduce = useReducedMotion();
+
+  const wrap: Variants = {
+    hidden: {},
+    visible: {
+      transition: reduce ? { staggerChildren: 0 } : { staggerChildren: 0.12, delayChildren: 0.1 },
+    },
+  };
+
+  const headIn: Variants = {
+    hidden: { opacity: 0, y: reduce ? 0 : 14, filter: reduce ? "blur(0px)" : "blur(10px)" },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
+  const cardIn: Variants = {
+    hidden: {
+      opacity: 0,
+      y: reduce ? 0 : 26,
+      scale: reduce ? 1 : 0.96,
+      filter: reduce ? "blur(0px)" : "blur(10px)",
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
+  return (
+    <section className="relative w-full overflow-hidden bg-black">
+      {/* background like screenshot */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-black" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(900px 500px at 15% 12%, rgba(255,255,255,0.10), rgba(0,0,0,0) 60%), radial-gradient(1000px 600px at 50% 40%, rgba(255,255,255,0.06), rgba(0,0,0,0) 65%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.75) 100%)",
+          }}
+        />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+        {/* Left aligned heading like screenshot */}
+        <motion.div
+          variants={headIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.45 }}
+          className="max-w-2xl"
+        >
+          <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            Feedback Corner
+          </h2>
+          <p className="mt-3 text-sm text-white/70 sm:text-base">
+            At Beauty salon, our customers are the heartbeat of our brand.
+          </p>
+        </motion.div>
+
+        {/* Cards grid */}
+        <motion.div
+          className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3"
+          variants={wrap}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+        >
+          {feedbacks.map((item, index) => (
+            <FeedbackCard key={`${item.name}-${index}`} item={item} index={index} variants={cardIn} />
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
 
 function FeedbackCard({
   item,
   index,
+  variants,
 }: {
   item: FeedbackItem;
   index: number;
+  variants: Variants;
 }) {
-  const isDark = item.variant === "dark";
+  const isGold = item.variant === "gold";
 
   return (
     <motion.div
       custom={index}
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
+      variants={variants}
+      className="group relative w-full"
       whileHover={{
         y: -10,
         scale: 1.02,
+        transition: { duration: 0.22, ease: "easeOut" },
       }}
-      className="relative"
+      whileTap={{ scale: 0.99 }}
     >
       <div
-        className={`relative rounded-2xl px-12 py-10 overflow-hidden transition-all duration-300 ${
-          isDark
-            ? "text-white shadow-[0_25px_60px_rgba(186,108,78,0.35)]"
-            : "bg-[#f3e4e6] text-[#1f1f1f] shadow-[0_18px_45px_rgba(0,0,0,0.12)]"
-        }`}
-        style={isDark ? { backgroundColor: "#B08D3C" } : undefined}
+        className={[
+          "relative overflow-hidden rounded-2xl px-8 py-8 sm:px-10 sm:py-10",
+          "border border-white/10",
+          "shadow-[0_20px_55px_rgba(0,0,0,0.45)]",
+          isGold ? "text-white" : "text-white",
+        ].join(" ")}
+        style={{
+          backgroundColor: isGold ? "#B08D3C" : "#1A1A1A",
+        }}
       >
-        {/* overlay */}
-        {isDark && (
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ backgroundColor: "#B08D3C21" }}
-            aria-hidden
-          />
-        )}
+        {/* soft highlight overlay */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-100"
+          style={{
+            background: isGold
+              ? "linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04))"
+              : "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
+          }}
+        />
 
-        {/* decorative glow on hover */}
-        <div className="absolute inset-0 rounded-2xl opacity-0 hover:opacity-100 transition duration-300 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+        {/* glow on hover */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-16 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
+          style={{
+            background: isGold
+              ? "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.22), transparent 55%)"
+              : "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.14), transparent 55%)",
+          }}
+        />
 
-        <span
-          className={`absolute left-9 top-7 text-6xl leading-none transition-transform duration-300 group-hover:scale-110 ${
-            isDark ? "text-white/90" : "text-black/70"
-          }`}
-          aria-hidden
-        >
-          “
-        </span>
+        {/* quote mark */}
+        <div className="relative">
+          <div className="text-4xl leading-none text-white/95">“</div>
 
-        <div className="relative pt-12">
-          <h4 className="text-xl font-semibold tracking-tight">{item.name}</h4>
+          <h4 className="mt-4 text-lg font-semibold tracking-tight sm:text-xl">{item.name}</h4>
 
-          <p
-            className={`mt-6 text-base leading-7 ${
-              isDark ? "text-white/90" : "text-black/70"
-            }`}
-          >
-            {item.text}
-          </p>
+          <p className="mt-4 text-sm leading-7 text-white/85 sm:text-base">{item.text}</p>
         </div>
+
+        {/* bottom hairline */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/15" />
       </div>
     </motion.div>
-  );
-}
-
-export default function Feedback() {
-  return (
-    <section className="w-full py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center text-3xl md:text-4xl font-semibold"
-        >
-          Feedback Corner
-        </motion.h2>
-
-        <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 place-items-center">
-          {feedbacks.map((item, index) => (
-            <div
-              key={item.name}
-              className="w-full max-w-xl md:max-w-[420px] lg:max-w-[480px]"
-            >
-              <FeedbackCard item={item} index={index} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }
