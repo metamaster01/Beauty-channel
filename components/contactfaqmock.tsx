@@ -61,7 +61,6 @@ export default function ContactFAQMock() {
   const contactRef = useRef<HTMLElement | null>(null);
   const faqRef = useRef<HTMLElement | null>(null);
 
-  const [wrapInView, setWrapInView] = useState(false);
   const [contactInView, setContactInView] = useState(false);
   const [faqInView, setFaqInView] = useState(false);
 
@@ -106,26 +105,20 @@ export default function ContactFAQMock() {
     []
   );
 
-  // Scroll reveal observers
   useEffect(() => {
     const obs = (el: Element | null, set: (v: boolean) => void, threshold = 0.18) => {
       if (!el) return null;
-      const io = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) set(true);
-        },
-        { threshold }
-      );
+      const io = new IntersectionObserver(([entry]) => entry.isIntersecting && set(true), {
+        threshold,
+      });
       io.observe(el);
       return io;
     };
 
-    const ioWrap = obs(wrapRef.current, setWrapInView, 0.1);
     const io1 = obs(contactRef.current, setContactInView, 0.2);
     const io2 = obs(faqRef.current, setFaqInView, 0.15);
 
     return () => {
-      ioWrap?.disconnect();
       io1?.disconnect();
       io2?.disconnect();
     };
@@ -148,7 +141,6 @@ export default function ContactFAQMock() {
         .c_${uid}_reveal { opacity: 0; transform: translateY(18px); filter: blur(10px); }
         .c_${uid}_reveal.in { animation: c_${uid}_fadeUp 800ms cubic-bezier(.2,.8,.2,1) forwards; }
 
-        /* FAQ answer: smooth open */
         .c_${uid}_ansWrap {
           display: grid;
           transition: grid-template-rows 260ms ease, opacity 260ms ease, transform 260ms ease;
@@ -163,10 +155,9 @@ export default function ContactFAQMock() {
         }
       `}</style>
 
-      {/* Top dark band */}
+      {/* CONTACT */}
       <section className="px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-12">
         <div className="mx-auto max-w-6xl">
-          {/* CONTACT CARD */}
           <section ref={contactRef}>
             <div
               className={[
@@ -175,12 +166,8 @@ export default function ContactFAQMock() {
                 "grid grid-cols-1 md:grid-cols-2",
               ].join(" ")}
             >
-              {/* Left gold panel */}
-              <div
-                className="relative p-8 sm:p-10 text-white"
-                style={{ backgroundColor: GOLD }}
-              >
-                {/* subtle shine sweep */}
+              {/* Left gold */}
+              <div className="relative p-8 sm:p-10 text-white" style={{ backgroundColor: GOLD }}>
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0 hidden md:block"
@@ -219,7 +206,7 @@ export default function ContactFAQMock() {
                       className={[
                         "group flex items-center justify-between gap-4",
                         "max-w-xs",
-                        "c_" + uid + "_reveal",
+                        `c_${uid}_reveal`,
                         contactInView ? "in" : "",
                       ].join(" ")}
                       style={{ animationDelay: `${220 + idx * 90}ms` }}
@@ -234,9 +221,8 @@ export default function ContactFAQMock() {
                 </div>
               </div>
 
-              {/* Right form panel (dark like screenshot) */}
+              {/* Right dark form */}
               <div className="relative bg-[#0d0f10] p-8 sm:p-10">
-                {/* soft top sheen */}
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0"
@@ -292,11 +278,6 @@ export default function ContactFAQMock() {
                       style={{ backgroundColor: GOLD }}
                     >
                       Send <span aria-hidden="true">→</span>
-                      <span
-                        aria-hidden="true"
-                        className="pointer-events-none absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{ width: 1, height: 1, boxShadow: "0 0 28px rgba(176,141,60,.45)" }}
-                      />
                     </button>
                   </div>
                 </form>
@@ -306,14 +287,8 @@ export default function ContactFAQMock() {
         </div>
       </section>
 
-      {/* FAQ gold section (full width like screenshot) */}
-      <section
-        ref={faqRef}
-        className="w-full"
-        style={{
-          backgroundColor: GOLD,
-        }}
-      >
+      {/* FAQ (NO bottom grey bar now) */}
+      <section ref={faqRef} className="w-full" style={{ backgroundColor: GOLD }}>
         <div className="px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="mx-auto max-w-6xl">
             <div
@@ -336,6 +311,7 @@ export default function ContactFAQMock() {
             >
               {faqs.map((item, idx) => {
                 const isOpen = openId === item.id;
+
                 return (
                   <div
                     key={item.id}
@@ -349,9 +325,7 @@ export default function ContactFAQMock() {
                       aria-expanded={isOpen}
                       aria-controls={`${item.id}-panel`}
                     >
-                      <span className="text-white/95 text-sm sm:text-base">
-                        {item.question}
-                      </span>
+                      <span className="text-white/95 text-sm sm:text-base">{item.question}</span>
 
                       <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/0 hover:bg-white/10 transition">
                         {isOpen ? (
@@ -376,13 +350,6 @@ export default function ContactFAQMock() {
                 );
               })}
             </div>
-
-            {/* subtle bottom dark band like screenshot */}
-            <div
-              aria-hidden="true"
-              className={`mt-10 h-10 w-full rounded-xl bg-black/35 c_${uid}_reveal ${faqInView ? "in" : ""}`}
-              style={{ animationDelay: "520ms" }}
-            />
           </div>
         </div>
       </section>

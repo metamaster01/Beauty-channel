@@ -7,6 +7,7 @@ import OurServices from "@/components/ourservices";
 import Offer from "@/components/offer";
 import AppointmentHero from "@/components/appoinment"; 
 import ContactFaqMock from "@/components/contactfaqmock";
+import BeautyMarquee from "@/components/beautymarquee";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import Advertisement from "@/components/advertisement";
@@ -28,6 +29,7 @@ export default function Home() {
       <Gallery/>
       <AppointmentHero/>
       <ContactFaqMock/>
+    <BeautyMarquee/>
       <Footer/>
       <Offer/>
       </main>
