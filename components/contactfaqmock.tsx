@@ -10,10 +10,11 @@ type FAQItem = {
 
 type ContactInfoItem = {
   id: string;
-  label: string;
   value: string;
   href: string;
 };
+
+const GOLD = "#B08D3C";
 
 const ArrowCircleIcon = ({ className = "" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -56,41 +57,21 @@ const MinusIcon = ({ className = "" }: { className?: string }) => (
 );
 
 export default function ContactFAQMock() {
+  const wrapRef = useRef<HTMLDivElement | null>(null);
   const contactRef = useRef<HTMLElement | null>(null);
   const faqRef = useRef<HTMLElement | null>(null);
 
+  const [wrapInView, setWrapInView] = useState(false);
   const [contactInView, setContactInView] = useState(false);
   const [faqInView, setFaqInView] = useState(false);
 
   const uid = useId().replace(/:/g, "");
-
-  // Scroll reveal observer (reusable)
-  useEffect(() => {
-    const makeObserver = (el: HTMLElement | null, set: (v: boolean) => void) => {
-      if (!el) return null;
-      const io = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) set(true);
-        },
-        { threshold: 0.2 }
-      );
-      io.observe(el);
-      return io;
-    };
-
-    const io1 = makeObserver(contactRef.current, setContactInView);
-    const io2 = makeObserver(faqRef.current, setFaqInView);
-
-    return () => {
-      io1?.disconnect();
-      io2?.disconnect();
-    };
-  }, []);
+  const [openId, setOpenId] = useState<string | null>(null);
 
   const contactInfo: ContactInfoItem[] = useMemo(
     () => [
-      { id: "phone", label: "Phone", value: "+916356547812", href: "tel:+916356547812" },
-      { id: "email", label: "Email", value: "beauty@gmail.com", href: "mailto:beauty@gmail.com" },
+      { id: "phone", value: "+916356547812", href: "tel:+916356547812" },
+      { id: "email", value: "beauty@gmail.com", href: "mailto:beauty@gmail.com" },
     ],
     []
   );
@@ -125,243 +106,283 @@ export default function ContactFAQMock() {
     []
   );
 
-  const [openId, setOpenId] = useState<string | null>(null);
+  // Scroll reveal observers
+  useEffect(() => {
+    const obs = (el: Element | null, set: (v: boolean) => void, threshold = 0.18) => {
+      if (!el) return null;
+      const io = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) set(true);
+        },
+        { threshold }
+      );
+      io.observe(el);
+      return io;
+    };
+
+    const ioWrap = obs(wrapRef.current, setWrapInView, 0.1);
+    const io1 = obs(contactRef.current, setContactInView, 0.2);
+    const io2 = obs(faqRef.current, setFaqInView, 0.15);
+
+    return () => {
+      ioWrap?.disconnect();
+      io1?.disconnect();
+      io2?.disconnect();
+    };
+  }, []);
 
   return (
-    <div className="w-full bg-white">
-      {/* Inline animation CSS (scoped safely with useId) */}
+    <div ref={wrapRef} className="w-full bg-black">
       <style>{`
-        @keyframes cfaq_${uid}_fadeUp {
+        @keyframes c_${uid}_fadeUp {
           0% { opacity: 0; transform: translateY(18px); filter: blur(10px); }
           100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
-        @keyframes cfaq_${uid}_softGlow {
-          0%, 100% { box-shadow: 0 0 0 rgba(0,0,0,0); }
-          50% { box-shadow: 0 0 30px rgba(0,0,0,.10); }
-        }
-        @keyframes cfaq_${uid}_shine {
-          0% { transform: translateX(-120%) skewX(-14deg); opacity: 0; }
-          30% { opacity: .18; }
+        @keyframes c_${uid}_shine {
+          0%   { transform: translateX(-120%) skewX(-14deg); opacity: 0; }
+          35%  { opacity: .14; }
+          70%  { opacity: .18; }
           100% { transform: translateX(120%) skewX(-14deg); opacity: 0; }
         }
 
-        .cfaq_${uid}_reveal { opacity: 0; transform: translateY(18px); filter: blur(10px); }
-        .cfaq_${uid}_reveal.in {
-          animation: cfaq_${uid}_fadeUp 750ms cubic-bezier(.2,.8,.2,1) forwards;
-        }
+        .c_${uid}_reveal { opacity: 0; transform: translateY(18px); filter: blur(10px); }
+        .c_${uid}_reveal.in { animation: c_${uid}_fadeUp 800ms cubic-bezier(.2,.8,.2,1) forwards; }
 
-        /* FAQ answer: smooth open using grid rows + subtle slide */
-        .cfaq_${uid}_ansWrap {
+        /* FAQ answer: smooth open */
+        .c_${uid}_ansWrap {
           display: grid;
           transition: grid-template-rows 260ms ease, opacity 260ms ease, transform 260ms ease;
         }
-        .cfaq_${uid}_ansWrap.closed {
-          grid-template-rows: 0fr;
-          opacity: 0;
-          transform: translateY(-6px);
-        }
-        .cfaq_${uid}_ansWrap.open {
-          grid-template-rows: 1fr;
-          opacity: 1;
-          transform: translateY(0);
-        }
+        .c_${uid}_ansWrap.closed { grid-template-rows: 0fr; opacity: 0; transform: translateY(-6px); }
+        .c_${uid}_ansWrap.open { grid-template-rows: 1fr; opacity: 1; transform: translateY(0); }
 
         @media (prefers-reduced-motion: reduce) {
-          .cfaq_${uid}_reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
-          .cfaq_${uid}_reveal.in { animation: none !important; }
-          .cfaq_${uid}_ansWrap { transition: none !important; }
+          .c_${uid}_reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+          .c_${uid}_reveal.in { animation: none !important; }
+          .c_${uid}_ansWrap { transition: none !important; }
         }
       `}</style>
 
-      {/* CONTACT SECTION */}
-      <section ref={contactRef} className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden border border-black/10">
-            {/* Left panel */}
-            <div className="relative bg-[#B08D3C] text-white p-8 sm:p-10 overflow-hidden">
-              {/* subtle “shine” sweep */}
+      {/* Top dark band */}
+      <section className="px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-12">
+        <div className="mx-auto max-w-6xl">
+          {/* CONTACT CARD */}
+          <section ref={contactRef}>
+            <div
+              className={[
+                "rounded-2xl overflow-hidden border border-white/10 bg-[#0b0b0b]",
+                "shadow-[0_30px_80px_rgba(0,0,0,0.55)]",
+                "grid grid-cols-1 md:grid-cols-2",
+              ].join(" ")}
+            >
+              {/* Left gold panel */}
               <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 opacity-0 md:opacity-100"
-                style={{
-                  background:
-                    "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.22) 50%, rgba(255,255,255,0) 100%)",
-                  width: "45%",
-                  left: "-10%",
-                  top: "0",
-                  height: "100%",
-                  animation: contactInView ? `cfaq_${uid}_shine 6.5s ease-in-out infinite` : "none",
-                  mixBlendMode: "overlay",
-                }}
-              />
-
-              <h2
-                className={`text-2xl sm:text-3xl font-semibold leading-tight cfaq_${uid}_reveal ${
-                  contactInView ? "in" : ""
-                }`}
-                style={{ animationDelay: "40ms" }}
+                className="relative p-8 sm:p-10 text-white"
+                style={{ backgroundColor: GOLD }}
               >
-                Let’s connect and talk about
-                <br />
-                what you need.
-              </h2>
+                {/* subtle shine sweep */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 hidden md:block"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.22) 50%, rgba(255,255,255,0) 100%)",
+                    width: "45%",
+                    left: "-12%",
+                    top: 0,
+                    height: "100%",
+                    animation: contactInView ? `c_${uid}_shine 7.2s ease-in-out infinite` : "none",
+                    mixBlendMode: "overlay",
+                    opacity: 0.18,
+                  }}
+                />
 
-              <p
-                className={`mt-4 text-white/90 max-w-sm cfaq_${uid}_reveal ${
-                  contactInView ? "in" : ""
-                }`}
-                style={{ animationDelay: "140ms" }}
-              >
-                Fill out the form below or reach out directly.
-              </p>
+                <div
+                  className={`c_${uid}_reveal ${contactInView ? "in" : ""}`}
+                  style={{ animationDelay: "60ms" }}
+                >
+                  <h2 className="text-xl sm:text-2xl font-semibold leading-snug">
+                    Let’s connect and talk about
+                    <br />
+                    what you need.
+                  </h2>
+                  <p className="mt-3 text-white/90 max-w-sm">
+                    Fill out the form below or reach out directly.
+                  </p>
+                </div>
 
-              <div className="mt-10 space-y-4">
-                {contactInfo.map((item, idx) => (
-                  <a
-                    key={item.id}
-                    href={item.href}
-                    className={`group flex items-center justify-between gap-4 rounded-xl px-3 py-2 hover:bg-white/10 transition
-                    cfaq_${uid}_reveal ${contactInView ? "in" : ""}`}
-                    style={{ animationDelay: `${220 + idx * 90}ms` }}
-                    aria-label={`${item.label}: ${item.value}`}
+                <div className="mt-14 space-y-3">
+                  {contactInfo.map((item, idx) => (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      className={[
+                        "group flex items-center justify-between gap-4",
+                        "max-w-xs",
+                        "c_" + uid + "_reveal",
+                        contactInView ? "in" : "",
+                      ].join(" ")}
+                      style={{ animationDelay: `${220 + idx * 90}ms` }}
+                      aria-label={item.value}
+                    >
+                      <span className="text-white/95 font-medium">{item.value}</span>
+                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-black shadow-sm transition group-hover:scale-[1.03] group-hover:bg-white">
+                        <ArrowCircleIcon className="h-5 w-5" />
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right form panel (dark like screenshot) */}
+              <div className="relative bg-[#0d0f10] p-8 sm:p-10">
+                {/* soft top sheen */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "radial-gradient(closest-side at 20% 0%, rgba(255,255,255,.08), rgba(255,255,255,0) 55%)",
+                    opacity: 0.35,
+                  }}
+                />
+
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    alert("Mock send ✨");
+                  }}
+                  className="relative space-y-6"
+                >
+                  <div
+                    className={`c_${uid}_reveal ${contactInView ? "in" : ""}`}
+                    style={{ animationDelay: "160ms" }}
                   >
-                    <span className="text-white/95">{item.value}</span>
-                    <span className="relative inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/15 group-hover:bg-white/20 transition">
-                      <ArrowCircleIcon className="w-5 h-5 text-white transition-transform duration-200 group-hover:translate-x-0.5" />
+                    <DarkField label="Your Name" name="name" />
+                  </div>
+
+                  <div
+                    className={`c_${uid}_reveal ${contactInView ? "in" : ""}`}
+                    style={{ animationDelay: "240ms" }}
+                  >
+                    <DarkField label="Your Number" name="number" />
+                  </div>
+
+                  <div
+                    className={`c_${uid}_reveal ${contactInView ? "in" : ""}`}
+                    style={{ animationDelay: "320ms" }}
+                  >
+                    <DarkField label="Email" name="email" type="email" />
+                  </div>
+
+                  <div
+                    className={`c_${uid}_reveal ${contactInView ? "in" : ""}`}
+                    style={{ animationDelay: "400ms" }}
+                  >
+                    <DarkTextArea label="Message..." name="message" />
+                  </div>
+
+                  <div
+                    className={`c_${uid}_reveal ${contactInView ? "in" : ""}`}
+                    style={{ animationDelay: "480ms" }}
+                  >
+                    <button
+                      type="submit"
+                      className="group inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold text-black shadow-sm transition hover:brightness-110 active:scale-[0.99]"
+                      style={{ backgroundColor: GOLD }}
+                    >
+                      Send <span aria-hidden="true">→</span>
                       <span
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{ boxShadow: "0 0 22px rgba(255,255,255,.20)" }}
+                        className="pointer-events-none absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{ width: 1, height: 1, boxShadow: "0 0 28px rgba(176,141,60,.45)" }}
                       />
-                    </span>
-                  </a>
-                ))}
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
-
-            {/* Right panel (form) */}
-            <div className="bg-white p-8 sm:p-10">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  alert("Mock send ✨");
-                }}
-                className="space-y-6"
-              >
-                <div
-                  className={`cfaq_${uid}_reveal ${contactInView ? "in" : ""}`}
-                  style={{ animationDelay: "220ms" }}
-                >
-                  <Field label="Your Name" name="name" placeholder=" " />
-                </div>
-
-                <div
-                  className={`cfaq_${uid}_reveal ${contactInView ? "in" : ""}`}
-                  style={{ animationDelay: "300ms" }}
-                >
-                  <Field label="Your Number" name="number" placeholder=" " />
-                </div>
-
-                <div
-                  className={`cfaq_${uid}_reveal ${contactInView ? "in" : ""}`}
-                  style={{ animationDelay: "380ms" }}
-                >
-                  <Field label="Email" name="email" type="email" placeholder=" " />
-                </div>
-
-                <div
-                  className={`cfaq_${uid}_reveal ${contactInView ? "in" : ""}`}
-                  style={{ animationDelay: "460ms" }}
-                >
-                  <TextAreaField label="Message..." name="message" />
-                </div>
-
-                <div
-                  className={`cfaq_${uid}_reveal ${contactInView ? "in" : ""}`}
-                  style={{ animationDelay: "540ms" }}
-                >
-                  <button
-                    type="submit"
-                    className="group relative inline-flex items-center gap-2 rounded-full bg-[#2A1A14] text-white px-6 py-2.5 text-sm font-medium hover:opacity-95 transition"
-                    style={{
-                      animation: contactInView
-                        ? `cfaq_${uid}_softGlow 2.6s ease-in-out infinite`
-                        : "none",
-                    }}
-                  >
-                    Send <span aria-hidden="true">→</span>
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{
-                        boxShadow: "0 0 0 1px rgba(255,255,255,.22), 0 0 26px rgba(0,0,0,.18)",
-                      }}
-                    />
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+          </section>
         </div>
       </section>
 
-      {/* FAQ SECTION */}
-      <section ref={faqRef} className="px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
-        <div className="mx-auto max-w-3xl">
-          <h3
-            className={`text-center text-2xl sm:text-3xl font-semibold text-black cfaq_${uid}_reveal ${
-              faqInView ? "in" : ""
-            }`}
-            style={{ animationDelay: "60ms" }}
-          >
-            Frequently Asked Questions
-          </h3>
+      {/* FAQ gold section (full width like screenshot) */}
+      <section
+        ref={faqRef}
+        className="w-full"
+        style={{
+          backgroundColor: GOLD,
+        }}
+      >
+        <div className="px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+          <div className="mx-auto max-w-6xl">
+            <div
+              className={`c_${uid}_reveal ${faqInView ? "in" : ""}`}
+              style={{ animationDelay: "60ms" }}
+            >
+              <h3 className="text-white text-2xl sm:text-3xl font-semibold">
+                Frequently Asked Questions
+              </h3>
+            </div>
 
-          <div
-            className={`mt-10 divide-y divide-black/10 border-t border-black/10 cfaq_${uid}_reveal ${
-              faqInView ? "in" : ""
-            }`}
-            style={{ animationDelay: "160ms" }}
-          >
-            {faqs.map((item, idx) => {
-              const isOpen = openId === item.id;
-
-              return (
-                <div
-                  key={item.id}
-                  className={`py-4 cfaq_${uid}_reveal ${faqInView ? "in" : ""}`}
-                  style={{ animationDelay: `${220 + idx * 90}ms` }}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setOpenId((prev) => (prev === item.id ? null : item.id))}
-                    className="w-full flex items-center justify-between gap-4 text-left"
-                    aria-expanded={isOpen}
-                    aria-controls={`${item.id}-panel`}
-                  >
-                    <span className="text-sm sm:text-base text-black/90">{item.question}</span>
-                    <span className="inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-black/5 transition">
-                      {isOpen ? (
-                        <MinusIcon className="w-5 h-5 text-black/70" />
-                      ) : (
-                        <PlusIcon className="w-5 h-5 text-black/70" />
-                      )}
-                    </span>
-                  </button>
-
+            <div
+              className={[
+                "mt-10 border-t border-white/20",
+                "divide-y divide-white/15",
+                `c_${uid}_reveal`,
+                faqInView ? "in" : "",
+              ].join(" ")}
+              style={{ animationDelay: "140ms" }}
+            >
+              {faqs.map((item, idx) => {
+                const isOpen = openId === item.id;
+                return (
                   <div
-                    id={`${item.id}-panel`}
-                    className={`cfaq_${uid}_ansWrap ${isOpen ? "open mt-2" : "closed"}`}
+                    key={item.id}
+                    className={`py-6 c_${uid}_reveal ${faqInView ? "in" : ""}`}
+                    style={{ animationDelay: `${200 + idx * 80}ms` }}
                   >
-                    <div className="overflow-hidden">
-                      <p className="text-sm text-black/70 leading-relaxed pr-12">
-                        {item.answer}
-                      </p>
+                    <button
+                      type="button"
+                      onClick={() => setOpenId((prev) => (prev === item.id ? null : item.id))}
+                      className="w-full flex items-center justify-between gap-6 text-left"
+                      aria-expanded={isOpen}
+                      aria-controls={`${item.id}-panel`}
+                    >
+                      <span className="text-white/95 text-sm sm:text-base">
+                        {item.question}
+                      </span>
+
+                      <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/0 hover:bg-white/10 transition">
+                        {isOpen ? (
+                          <MinusIcon className="h-5 w-5 text-white" />
+                        ) : (
+                          <PlusIcon className="h-5 w-5 text-white" />
+                        )}
+                      </span>
+                    </button>
+
+                    <div
+                      id={`${item.id}-panel`}
+                      className={`c_${uid}_ansWrap ${isOpen ? "open mt-3" : "closed"}`}
+                    >
+                      <div className="overflow-hidden">
+                        <p className="text-white/85 text-sm leading-relaxed max-w-4xl pr-12">
+                          {item.answer}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+
+            {/* subtle bottom dark band like screenshot */}
+            <div
+              aria-hidden="true"
+              className={`mt-10 h-10 w-full rounded-xl bg-black/35 c_${uid}_reveal ${faqInView ? "in" : ""}`}
+              style={{ animationDelay: "520ms" }}
+            />
           </div>
         </div>
       </section>
@@ -369,16 +390,14 @@ export default function ContactFAQMock() {
   );
 }
 
-function Field({
+function DarkField({
   label,
   name,
   type = "text",
-  placeholder,
 }: {
   label: string;
   name: string;
   type?: string;
-  placeholder?: string;
 }) {
   return (
     <label className="block group">
@@ -387,11 +406,22 @@ function Field({
         <input
           name={name}
           type={type}
-          placeholder={placeholder}
-          className="w-full border-b border-black/25 focus:border-black/60 outline-none py-3 text-sm placeholder:text-transparent"
+          placeholder=" "
+          className={[
+            "w-full bg-transparent text-white/90 text-sm",
+            "border-b border-white/15 focus:border-white/35",
+            "outline-none py-3",
+            "placeholder:text-transparent",
+          ].join(" ")}
         />
-        {/* floating label effect */}
-        <span className="pointer-events-none absolute left-0 top-3 text-sm text-black/35 transition-all duration-200 group-focus-within:-translate-y-3 group-focus-within:text-xs group-focus-within:text-black/55">
+        <span
+          className={[
+            "pointer-events-none absolute left-0 top-3",
+            "text-sm text-white/35",
+            "transition-all duration-200",
+            "group-focus-within:-translate-y-3 group-focus-within:text-[11px] group-focus-within:text-white/55",
+          ].join(" ")}
+        >
           {label}
         </span>
       </div>
@@ -399,7 +429,7 @@ function Field({
   );
 }
 
-function TextAreaField({ label, name }: { label: string; name: string }) {
+function DarkTextArea({ label, name }: { label: string; name: string }) {
   return (
     <label className="block group">
       <span className="sr-only">{label}</span>
@@ -408,9 +438,21 @@ function TextAreaField({ label, name }: { label: string; name: string }) {
           name={name}
           rows={3}
           placeholder=" "
-          className="w-full border-b border-black/25 focus:border-black/60 outline-none py-3 text-sm resize-none placeholder:text-transparent"
+          className={[
+            "w-full bg-transparent text-white/90 text-sm resize-none",
+            "border-b border-white/15 focus:border-white/35",
+            "outline-none py-3",
+            "placeholder:text-transparent",
+          ].join(" ")}
         />
-        <span className="pointer-events-none absolute left-0 top-3 text-sm text-black/35 transition-all duration-200 group-focus-within:-translate-y-3 group-focus-within:text-xs group-focus-within:text-black/55">
+        <span
+          className={[
+            "pointer-events-none absolute left-0 top-3",
+            "text-sm text-white/35",
+            "transition-all duration-200",
+            "group-focus-within:-translate-y-3 group-focus-within:text-[11px] group-focus-within:text-white/55",
+          ].join(" ")}
+        >
           {label}
         </span>
       </div>
