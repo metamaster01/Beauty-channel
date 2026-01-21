@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const TEXT = "Claim your 10% discount on your first visit";
 
-function Marquee({ reverse = false, bg, z, opacity = 1 }) {
+function Marquee({ reverse = false, bg, z, opacity = 1 } : any) {
   return (
     <motion.div
       initial={{ x: reverse ? "-50%" : "0%" }}

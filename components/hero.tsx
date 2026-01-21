@@ -1,5 +1,3 @@
-
-
 // "use client";
 
 // import { useEffect, useState } from "react";
@@ -54,7 +52,7 @@
 //           className="
 //             text-white text-center md:text-left
 //             max-w-[520px]
-            // md:mt-0 lg:mt-28 xl:mt-32
+// md:mt-0 lg:mt-28 xl:mt-32
 //           "
 //         >
 //           <h1 className="text-4xl mt-6 md:text-4xl lg:text-5xl xl:text-6xl font-[PP Neue Montreal] leading-tight">
@@ -111,11 +109,11 @@
 //                 alt="Beauty Model"
 //                 fill
 //                 priority
-                // className="
-                //   object-contain
-                //   object-right
-                //   lg:translate-x-62
-                // "
+// className="
+//   object-contain
+//   object-right
+//   lg:translate-x-62
+// "
 //               />
 //             </motion.div>
 //           </AnimatePresence>
@@ -125,14 +123,17 @@
 //   );
 // }
 
-
-
 "use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 const models = ["/wmodel.png", "/wmodel2.png", "/wmodel3.png"];
@@ -140,7 +141,6 @@ const models = ["/wmodel.png", "/wmodel2.png", "/wmodel3.png"];
 export default function Hero() {
   const [index, setIndex] = useState(0);
 
-  
   useEffect(() => {
     const id = setInterval(() => {
       setIndex((p) => (p + 1) % models.length);
@@ -162,9 +162,7 @@ export default function Hero() {
     >
       <div className="relative z-10 min-h-screen flex items-center">
         <div className="mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-14">
-
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.4fr] items-center gap-10">
-
             {/* ================= LEFT TEXT ================= */}
             <motion.div
               style={{ y: textY }}
@@ -178,7 +176,8 @@ export default function Hero() {
                 pt-30 sm:pt-44 md:pt-28 lg:pt-0 md:mt-21 md:text-center lg:text-left
               "
             >
-              <h1 className="
+              <h1
+                className="
                 font-[PP Neue Montreal]
                 text-[38px]
                 sm:text-[44px]
@@ -187,13 +186,15 @@ export default function Hero() {
                 xl:text-[64px]
                 leading-[1.1]
                 tracking-tight
-              ">
+              "
+              >
                 Experience
                 <br />
                 Beauty. Feel
               </h1>
 
-              <span className="
+              <span
+                className="
                 block mt-3
                 font-[Cursive]
                 italic
@@ -201,18 +202,21 @@ export default function Hero() {
                 sm:text-[38px]
                 md:text-[42px]
                 lg:text-[48px]
-              ">
+              "
+              >
                 Confident.
               </span>
 
-              <p className="
+              <p
+                className="
                 mt-6
                 max-w-md
                 text-[15px]
                 sm:text-[16px]
                 text-white/80
                 leading-relaxed
-              ">
+              "
+              >
                 Personalized beauty experiences crafted to elevate how you look
                 and feel — every single day.
               </p>
@@ -261,20 +265,22 @@ export default function Hero() {
                 h-[380px]
                 sm:h-[460px]
                 md:h-[560px]
-                lg:h-[720px]
+                lg:h-[650px]
                 xl:h-[780px]
                 flex justify-end
                 w-full
               "
             >
               {/* glow */}
-              <div className="
+              <div
+                className="
                 absolute inset-0
                 rounded-full
                 bg-[#B08D3C]/20
                 blur-[120px]
                 opacity-60
-              " />
+              "
+              />
 
               <AnimatePresence mode="wait">
                 <motion.div
@@ -305,7 +311,6 @@ export default function Hero() {
                 </motion.div>
               </AnimatePresence>
             </motion.div>
-
           </div>
         </div>
       </div>
