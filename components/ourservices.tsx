@@ -9,18 +9,21 @@ const services = [
     title: "Hair Care",
     desc: "Professional haircuts, styling, coloring, and nourishing treatments for smooth, healthy, and stunning hair.",
     img: "/haircare.jpg",
+    Highlight: true,
     
   },
   {
     title: "Skin Treatments",
     desc: "Custom facials and advanced skincare rituals to hydrate, brighten, and rejuvenate your skin from within.",
     img: "/skin.png",
+    Highlight: false,
     
   },
   {
     title: "Makeup Artistry",
     desc: "From subtle glam to bridal elegance, our artists create flawless, long-lasting looks for every occasion.",
     img: "/close.jpg",
+    Highlight: false,
   },
   {
     title: "Nails & Hand–Foot Care",
@@ -31,6 +34,7 @@ const services = [
     title: "Spa & Wellness",
     desc: "Relaxing massages, body polishing, and aromatherapy rituals designed to refresh your mind and body.",
     img: "/spa.jpg",
+    Highlight: false,
   },
   {
     title: "Bridal & Pre-Bridal Packages",
@@ -78,10 +82,11 @@ export default function OurServices() {
               viewport={{ once: true }}
               transition={{ duration: 0.1, delay: i * 0.1 }}
               whileHover={{ y: -8 }}
+            
               className={`
                 group rounded-3xl overflow-hidden 
                 border border-gray-200
-                ${service.highlight ? "bg-[#C77B58]" : "bg-[#1D1D1D]"}
+                ${service.Highlight ? "bg-[#C77B58]" : "bg-[#1D1D1D]"}
                 shadow-sm hover:shadow-xl transition hover:bg-[#B08D3C]
               `}
             >
@@ -99,7 +104,7 @@ export default function OurServices() {
               <div className="p-6 flex flex-col h-[240px]">
                 <h3
                   className={`text-lg font-semibold mb-2 ${
-                    service.highlight ? "text-white" : "text-white"
+                    service.Highlight ? "text-white" : "text-white"
                   }`}
                 >
                   {service.title}
@@ -107,7 +112,7 @@ export default function OurServices() {
 
                 <p
                   className={`text-sm leading-relaxed flex-grow ${
-                    service.highlight
+                    service.Highlight
                       ? "text-white/200"
                       : "text-white"
                   }`}
@@ -122,7 +127,7 @@ export default function OurServices() {
                     rounded-full px-5 py-2 text-sm font-medium
                     transition
                     ${
-                      service.highlight
+                      service.Highlight
                         ? "bg-white text-[#C77B58]"
                         : "border border-gray-400 text-white hover:bg-black hover:text-white"
                     }

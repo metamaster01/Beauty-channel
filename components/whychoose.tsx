@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useRef } from "react";
 import {
+  easeIn,
+  easeInOut,
   motion,
   useReducedMotion,
   useScroll,
@@ -65,7 +67,7 @@ export default function WhyChoose() {
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
-      transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.75, ease: easeIn },
     },
   };
 
@@ -85,7 +87,7 @@ export default function WhyChoose() {
       rotateX: 0,
       rotateY: 0,
       filter: "blur(0px)",
-      transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.9, ease: easeInOut },
     },
   };
 
@@ -103,7 +105,7 @@ export default function WhyChoose() {
       scale: 1,
       rotate: 0,
       filter: "blur(0px)",
-      transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 1.0, ease: easeInOut },
     },
   };
 
@@ -112,7 +114,7 @@ export default function WhyChoose() {
     visible: {
       x: "120%",
       opacity: reduce ? 0 : 1,
-      transition: { duration: 1.15, ease: "easeInOut", delay: 0.2 },
+      transition: { duration: 1.15, ease: easeInOut, delay: 0.2 },
     },
   };
 
