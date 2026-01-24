@@ -12,7 +12,7 @@ export default function Navbar() {
   return (
     <>
       {/* ================= NAVBAR ================= */}
-      <nav className="fixed top-0 left-0 w-full md:w-[430px]  z-50">
+      <nav className="fixed top-0 left-0 w-full   z-50">
 
         {/* <div
           className="
