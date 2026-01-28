@@ -6,8 +6,7 @@ import Gallery from "@/components/gallery";
 
 import AppointmentHero from "@/components/appoinment"; 
 import ContactFaqMock from "@/components/contactfaqmock";
-import Footer from "@/components/footer";
-import Navbar from "@/components/navbar";
+
 import Advertisement from "@/components/advertisement";
 // import Offer from "@/components/offer";
 import OurServices from "@/components/ourservices";
@@ -17,7 +16,7 @@ import Products from "@/components/product";
 export default function Home() {
   return (
      <main className="min-h-screen  overflow-x-hidden">
-      <Navbar/>
+      
       <Hero/>
       <AboutUs/>
       <OurServices/>
@@ -29,7 +28,6 @@ export default function Home() {
       <Gallery/>
       <AppointmentHero/>
       <ContactFaqMock/>
-      <Footer/>
       
       </main>
   );
