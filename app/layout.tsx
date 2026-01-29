@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-<<<<<<< HEAD
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
-=======
 import { Toaster } from "sonner";
-import Navbar from "@/components/navbar";
+// import Navbar from "@/components/navbar";
 import { playfair, greatVibes } from "@/fonts";
->>>>>>> 846bba3e5d0918c2a48564a0bfbfd0ceeed28f13
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,15 +26,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
     <html lang="en">
-      <body className="bg-black text-white">
-        <Navbar/>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${greatVibes.variable} antialiased`}
+      >
+        {/* <Navbar /> */}
         {children}
-        <Footer/>
-        </body>
+        <Toaster 
+          position="top-center"
+          richColors
+          closeButton
+        />
+      </body>
     </html>
-
-    </>
   );
 }

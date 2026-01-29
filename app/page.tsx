@@ -12,11 +12,13 @@ import Advertisement from "@/components/advertisement";
 import OurServices from "@/components/ourservices";
 import Image from "next/image";
 import Products from "@/components/product";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
      <main className="min-h-screen  overflow-x-hidden">
-      
+      <Navbar />
       <Hero/>
       <AboutUs/>
       <OurServices/>
@@ -28,6 +30,7 @@ export default function Home() {
       <Gallery/>
       <AppointmentHero/>
       <ContactFaqMock/>
+      <Footer />
       
       </main>
   );
