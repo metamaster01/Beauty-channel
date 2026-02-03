@@ -2,12 +2,18 @@
 
 import Link from "next/link";
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 
 type FooterLink = { label: string; href: string };
 
 function IconFacebook({ className = "" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v3H7v3h3v6h3v-6h3l1-3h-4v-3c0-.6.4-1 1-1Z"
         fill="currentColor"
@@ -18,7 +24,12 @@ function IconFacebook({ className = "" }: { className?: string }) {
 
 function IconTwitter({ className = "" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M19.7 7.2c.01.16.01.32.01.48 0 4.86-3.7 10.46-10.46 10.46-2.08 0-4.01-.61-5.64-1.65.29.03.58.04.88.04 1.72 0 3.31-.59 4.57-1.58-1.6-.03-2.95-1.08-3.41-2.52.23.03.45.06.69.06.32 0 .65-.04.95-.12-1.67-.34-2.93-1.81-2.93-3.58v-.05c.49.27 1.05.44 1.65.46-.98-.66-1.62-1.78-1.62-3.05 0-.67.18-1.3.5-1.84 1.8 2.22 4.5 3.68 7.54 3.83-.06-.27-.1-.55-.1-.84 0-2.02 1.64-3.66 3.66-3.66 1.06 0 2.01.45 2.68 1.16.84-.16 1.62-.47 2.33-.89-.27.86-.86 1.58-1.61 2.04.74-.08 1.46-.29 2.12-.57-.5.74-1.12 1.39-1.84 1.9Z"
         fill="currentColor"
@@ -29,7 +40,12 @@ function IconTwitter({ className = "" }: { className?: string }) {
 
 function IconInstagram({ className = "" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm10.25 1.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"
         fill="currentColor"
@@ -51,7 +67,7 @@ export default function Footer() {
 
     const io = new IntersectionObserver(
       ([entry]) => entry.isIntersecting && setInView(true),
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
 
     io.observe(el);
@@ -66,7 +82,7 @@ export default function Footer() {
       { label: "Blog", href: "/blog" },
       { label: "Contact", href: "#contact" },
     ],
-    []
+    [],
   );
 
   const exploreLinks: FooterLink[] = useMemo(
@@ -75,7 +91,7 @@ export default function Footer() {
       { label: "Offer", href: "/offer" },
       { label: "Book", href: "/book" },
     ],
-    []
+    [],
   );
 
   return (
@@ -122,12 +138,24 @@ export default function Footer() {
             className={`md:col-span-4 f_${uid}_reveal ${inView ? "in" : ""}`}
             style={{ animationDelay: "40ms" }}
           >
-            <div className="text-3xl font-semibold italic tracking-tight text-white/95">
+            {/* <div className="text-3xl font-semibold italic tracking-tight text-white/95">
               Beauty logo
+            </div> */}
+            <div className="relative w-[70px] sm:w-[75px] lg:w-[110px] h-[54px] sm:h-[64px] lg:h-[95px]">
+
+            <Image
+              src="/beautylogo.png"
+              alt="Beauty Logo"
+              fill
+              priority
+              className="object-contain object-left"
+            />
             </div>
 
             <div className="mt-8">
-              <div className="text-xs uppercase tracking-wider text-white/60">Social Media</div>
+              <div className="text-xs uppercase tracking-wider text-white/60">
+                Social Media
+              </div>
 
               <div className="mt-3 flex items-center gap-3">
                 <a
@@ -170,7 +198,10 @@ export default function Footer() {
                   className={`f_${uid}_reveal ${inView ? "in" : ""}`}
                   style={{ animationDelay: `${180 + i * 70}ms` }}
                 >
-                  <Link className="hover:text-white/90 transition relative" href={l.href}>
+                  <Link
+                    className="hover:text-white/90 transition relative"
+                    href={l.href}
+                  >
                     {l.label}
                   </Link>
                 </li>
@@ -191,7 +222,10 @@ export default function Footer() {
                   className={`f_${uid}_reveal ${inView ? "in" : ""}`}
                   style={{ animationDelay: `${260 + i * 70}ms` }}
                 >
-                  <Link className="hover:text-white/90 transition relative" href={l.href}>
+                  <Link
+                    className="hover:text-white/90 transition relative"
+                    href={l.href}
+                  >
                     {l.label}
                   </Link>
                 </li>
@@ -204,10 +238,16 @@ export default function Footer() {
             className={`md:col-span-4 f_${uid}_reveal ${inView ? "in" : ""}`}
             style={{ animationDelay: "280ms" }}
           >
-            <div className="text-sm font-medium text-white/85">Contact info</div>
+            <div className="text-sm font-medium text-white/85">
+              Contact info
+            </div>
             <div className="mt-4 space-y-2 text-sm text-white/65">
-              <div className="hover:text-white/85 transition">info@beauty.com</div>
-              <div className="hover:text-white/85 transition">(078) 12345 12112</div>
+              <div className="hover:text-white/85 transition">
+                info@beauty.com
+              </div>
+              <div className="hover:text-white/85 transition">
+                (078) 12345 12112
+              </div>
               <div className="max-w-md">
                 Tower-17-002, Orchid Petals, Sohna Road,
                 <br />
@@ -229,12 +269,14 @@ export default function Footer() {
           }`}
           style={{ animationDelay: "420ms" }}
         >
-          <div>ABC Company © 2025. All rights Reserved.</div>
-          <div>support@Company.com</div>
+          <div> <Link href="https://metamaster.in" className="hover:text-white transition"> Metamaster © 2025. All rights Reserved.</Link></div>
+          <div>info@metamaster.in</div>
         </div>
 
         {/* Divider */}
-        <div className={`border-t border-white/10 f_${uid}_divider ${inView ? "in" : ""}`} />
+        <div
+          className={`border-t border-white/10 f_${uid}_divider ${inView ? "in" : ""}`}
+        />
 
         {/* Bottom line 2: long line + right links (like image) */}
         <div

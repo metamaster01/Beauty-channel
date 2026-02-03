@@ -28,3 +28,75 @@ html {
   color-scheme: only light !important;
   forced-color-adjust: none !important;
 }
+
+/* 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-black text-golden;
+  }
+} */
+
+
+
+
+/* Masonry Grid Styles */
+.masonry-grid {
+  column-count: 4;
+  column-gap: 1.25rem;
+}
+
+@media (max-width: 1200px) {
+  .masonry-grid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .masonry-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry-grid {
+    column-count: 1;
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FFD700;
+}
+
+/* Selection Color */
+::selection {
+  background-color: rgba(212, 175, 55, 0.3);
+  color: #D4AF37;
+}
+
+/* Prevent Flash of Unstyled Content */
+.masonry-item {
+  will-change: transform, opacity;
+}
