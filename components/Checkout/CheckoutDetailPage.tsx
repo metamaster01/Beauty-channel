@@ -62,6 +62,8 @@ export default function CheckoutPage({ slug }: { slug: string }) {
   const [quantity, setQuantity] = useState(1);
   const [variant, setVariant] = useState<string | null>(null);
 
+  const [variantPrice, setVariantPrice] = useState<number | null>(null);
+
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>({
     full_name: "",
     email: "",
@@ -91,9 +93,11 @@ export default function CheckoutPage({ slug }: { slug: string }) {
     const productId = searchParams.get("product_id");
     const urlQuantity = searchParams.get("quantity");
     const urlVariant = searchParams.get("variant");
+    const urlPrice = searchParams.get("price");
 
     if (urlQuantity) setQuantity(parseInt(urlQuantity));
     if (urlVariant) setVariant(urlVariant);
+    if (urlPrice) setVariantPrice(parseFloat(urlPrice));
 
     if (productId) {
       loadProduct(productId);
@@ -233,10 +237,33 @@ export default function CheckoutPage({ slug }: { slug: string }) {
     setPromoError("");
   }
 
+  // function calculatePricing() {
+  //   if (!product) return { subtotal: 0, delivery: 0, discount: 0, total: 0 };
+
+  //   const subtotal = product.selling_price * quantity;
+  //   let delivery = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : DELIVERY_CHARGE;
+  //   let discount = 0;
+
+  //   if (appliedPromo) {
+  //     if (appliedPromo.discount_type === "flat") {
+  //       discount = appliedPromo.discount_value;
+  //     } else if (appliedPromo.discount_type === "percent") {
+  //       discount = (subtotal * appliedPromo.discount_value) / 100;
+  //     }
+  //   }
+
+  //   const total = subtotal + delivery - discount;
+
+  //   return { subtotal, delivery, discount, total };
+  // }
+
   function calculatePricing() {
     if (!product) return { subtotal: 0, delivery: 0, discount: 0, total: 0 };
 
-    const subtotal = product.selling_price * quantity;
+    // 🔥 USE VARIANT PRICE IF AVAILABLE
+    const pricePerUnit = variantPrice || product.selling_price;
+    const subtotal = pricePerUnit * quantity;
+
     let delivery = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : DELIVERY_CHARGE;
     let discount = 0;
 
@@ -375,7 +402,7 @@ export default function CheckoutPage({ slug }: { slug: string }) {
         order_id: order.id,
         product_id: product.id,
         quantity: quantity,
-        price: product.selling_price,
+        price: variantPrice || product.selling_price, // 🔥 USE VARIANT PRICE
         variant: variant,
       });
 
@@ -684,6 +711,7 @@ export default function CheckoutPage({ slug }: { slug: string }) {
                 quantity={quantity}
                 setQuantity={setQuantity}
                 variant={variant}
+                variantPrice={variantPrice}
                 pricing={pricing}
                 promoCode={promoCode}
                 setPromoCode={setPromoCode}
@@ -969,6 +997,7 @@ function OrderSummary({
   quantity,
   setQuantity,
   variant,
+  variantPrice,
   pricing,
   promoCode,
   setPromoCode,
@@ -1004,8 +1033,11 @@ function OrderSummary({
               {variant && (
                 <p className="text-white/60 text-xs mb-1">Size: {variant}</p>
               )}
-              <p className="text-white/80 text-sm font-semibold">
+              {/* <p className="text-white/80 text-sm font-semibold">
                 {formatPrice(product.selling_price)}
+              </p> */}
+              <p className="text-white/80 text-sm font-semibold">
+                {formatPrice(variantPrice || product.selling_price)}
               </p>
             </div>
           </div>
