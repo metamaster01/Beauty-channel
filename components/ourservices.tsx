@@ -8,38 +8,47 @@ const services = [
   {
     title: "Hair Care",
     desc: "Professional haircuts, styling, coloring, and nourishing treatments for smooth, healthy, and stunning hair.",
-    img: "/haircare.jpg",
+    img: "/services/haircare.png",
+    slug: "hair",
     Highlight: true,
     
   },
   {
     title: "Skin Treatments",
     desc: "Custom facials and advanced skincare rituals to hydrate, brighten, and rejuvenate your skin from within.",
-    img: "/skin.png",
+    img: "/services/skin.png",
+    slug: "skin",
     Highlight: false,
     
   },
   {
     title: "Makeup Artistry",
     desc: "From subtle glam to bridal elegance, our artists create flawless, long-lasting looks for every occasion.",
-    img: "/close.jpg",
+    img: "/services/close.png",
+    slug: "makeup",
     Highlight: false,
   },
   {
     title: "Nails & Hand–Foot Care",
     desc: "Luxurious manicures, pedicures, gel nails, and creative nail art for perfectly polished hands and feet.",
-    img: "/nail.png",
+    img: "/services/nail.png",
+    slug: "nails",
+    Highlight: false,
+
   },
   {
     title: "Spa & Wellness",
     desc: "Relaxing massages, body polishing, and aromatherapy rituals designed to refresh your mind and body.",
-    img: "/spa.jpg",
+    img: "/services/spa.png",
+    slug: "spa",
     Highlight: false,
   },
   {
     title: "Bridal & Pre-Bridal Packages",
     desc: "Complete beauty preparation with skin rituals, hair treatments, and stunning bridal makeup for your big day.",
-    img: "/bridal.jpg",
+    img: "/services/bridal.png",
+    slug: "bridal",
+    Highlight: false,
   },
 ];
 
@@ -120,8 +129,8 @@ export default function OurServices() {
                   {service.desc}
                 </p>
 
-                <Link
-                  href="/booking"
+               <Link href={`/services/${service.slug}`}
+
                   className={`
                     mt-6 inline-flex justify-center items-center
                     rounded-full px-5 py-2 text-sm font-medium
@@ -135,6 +144,9 @@ export default function OurServices() {
                 >
                   Book now
                 </Link>
+
+                
+
               </div>
             </motion.div>
           ))}

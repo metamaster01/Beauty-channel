@@ -1,11 +1,21 @@
-import type { NextConfig } from "next";
+// import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-  images: {
-    domains: ["tordremwsvkpnzgkrygl.supabase.co", "images.unsplash.com"],
+// const nextConfig: NextConfig = {
+//   /* config options here */
+//   images: {
+//     domains: ["tordremwsvkpnzgkrygl.supabase.co", "images.unsplash.com"],
     
+//   },
+// };
+
+// export default nextConfig;
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
+
